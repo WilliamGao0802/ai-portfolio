@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-type="software">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>高乐达 William Gao · AI 产品作品集</title>
+<meta name="description" content="不聊概念，真做出来。北航计算机大一，用 AI 把想法做成拿得出手的作品：心与星寻、高代期中复习器、六个AI投资人分身。">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<meta property="og:title" content="高乐达 William Gao · AI 产品作品集">
+<meta property="og:description" content="不聊概念，真做出来。北航计算机大一，用 AI 把想法做成拿得出手的作品。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+/* ─────────────────────────────────────────────
+   v0.3 · tokens
+   One ink, one paper, one violet. No gradient.
+   ───────────────────────────────────────────── */
+:root{
+  --paper:#F7F8FA;
+  --paper-2:#EEF0F6;
+  --ink:#0A0E27;
+  --ink-soft:#464C6B;
+  --muted:#6B7189;
+  --line:rgba(10,14,39,.14);
+  --line-soft:rgba(10,14,39,.08);
+  --violet:#5326F0;
+  --violet-deep:#3D18C4;
+  --sans:"Noto Sans SC","Bricolage Grotesque","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --display:"Bricolage Grotesque","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --page:min(100% - 48px,1200px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p,dl,dd{margin:0}
+::selection{background:var(--violet);color:#fff}
+:focus-visible{outline:2px solid var(--violet);outline-offset:4px}
+*{scrollbar-width:thin;scrollbar-color:rgba(10,14,39,.28) transparent}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-thumb{background:rgba(10,14,39,.26);border:3px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+.wrap{width:var(--page);margin-inline:auto}
+@media(max-width:640px){:root{--page:calc(100% - 40px)}}
+
+/* ── nav ───────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:40;background:var(--paper);
+  border-bottom:1px solid var(--line);height:64px;
+}
+.nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.wordmark{font-size:15px;font-weight:800;letter-spacing:-.02em;padding:21px 0;display:inline-block}
+.nav nav{display:flex;align-items:center;gap:28px}
+.nav nav a{font-size:14px;color:var(--ink-soft);padding:21px 0;position:relative}
+.nav nav a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--violet);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease);
+}
+.nav nav a:hover{color:var(--ink)}
+.nav nav a:hover::after{transform:scaleX(1)}
+@media(max-width:640px){.nav{height:56px}.nav nav{gap:18px}.nav nav a{font-size:13px}}
+
+/* ── progress ──────────────────────────────── */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--violet);z-index:60}
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:#fff;
+  padding:12px 18px;font-size:14px;border-radius:2px}
+.skip:focus{left:12px;top:12px}
+
+/* ── views ─────────────────────────────────── */
+.view{display:none}
+.view.is-active{display:block}
+
+/* ── hero ──────────────────────────────────── */
+.hero{min-height:calc(100svh - 64px);display:flex;align-items:stretch;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
+  gap:clamp(28px,5vw,72px);align-items:center;padding-block:clamp(24px,5vh,56px) 0}
+.portrait{position:relative;align-self:stretch;min-height:420px}
+.portrait img{
+  position:absolute;left:0;bottom:0;width:100%;max-width:560px;height:auto;
+  filter:drop-shadow(0 30px 50px rgba(10,14,39,.14));
+}
+.hero-text{padding-bottom:clamp(48px,8vh,96px);max-width:600px}
+.hero h1{
+  font-family:var(--display);font-weight:800;font-size:clamp(58px,7.4vw,112px);
+  line-height:.94;letter-spacing:-.05em;color:var(--ink);
+}
+.claim{
+  margin-top:clamp(22px,3vh,32px);font-size:clamp(22px,2.3vw,32px);font-weight:600;
+  line-height:1.45;letter-spacing:-.025em;max-width:20ch;
+}
+.claim em{font-style:normal;color:var(--violet)}
+.intro{margin-top:20px;font-size:16px;line-height:1.85;color:var(--ink-soft);max-width:40ch}
+.specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px;margin-top:clamp(32px,5vh,48px)}
+.specs>div{border-top:1px solid var(--line);padding-top:14px}
+.specs dt{font-size:12px;color:var(--muted);letter-spacing:.02em}
+.specs dd{margin-top:4px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.actions{display:flex;align-items:center;gap:26px;margin-top:clamp(32px,5vh,44px);flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:#fff;
+  font-size:15px;font-weight:600;padding:14px 22px;border-radius:2px;
+  transition:background .2s ease-out;
+}
+.btn span{display:inline-block;transition:transform .2s ease-out}
+.btn:hover{background:var(--violet)}
+.btn:hover span{transform:translateX(4px)}
+.link{font-size:15px;font-weight:600;color:var(--ink);padding:12px 2px;border-bottom:1px solid var(--ink);transition:color .2s,border-color .2s}
+.link:hover{color:var(--violet);border-color:var(--violet)}
+@media(max-width:900px){
+  .hero{min-height:0}
+  .hero .wrap{grid-template-columns:1fr;gap:0;padding-block:24px 0}
+  .portrait{min-height:0;height:min(46vh,380px);order:0}
+  .portrait img{position:static;width:auto;max-width:100%;height:100%;object-fit:contain;object-position:bottom left;margin-inline:0}
+  .hero-text{padding-bottom:8px;max-width:none}
+  .hero h1{font-size:clamp(52px,15vw,84px)}
+  .specs{gap:0 16px}
+}
+
+/* ── work ──────────────────────────────────── */
+.work{padding-block:clamp(104px,15vh,176px) clamp(24px,4vh,48px)}
+.work-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:24px;align-items:end;
+  border-top:1px solid var(--ink);padding-top:24px}
+.work-head h2{font-family:var(--display);font-size:clamp(40px,5vw,68px);line-height:1;letter-spacing:-.045em;font-weight:800}
+.work-head p{font-size:14px;color:var(--muted);max-width:44ch;justify-self:end;text-align:right;line-height:1.7}
+@media(max-width:760px){.work-head{grid-template-columns:1fr;gap:12px}.work-head p{justify-self:start;text-align:left}}
+
+.row{
+  display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:clamp(28px,5vw,72px);
+  align-items:center;padding-block:clamp(36px,5.5vh,60px);border-top:1px solid var(--line);
+}
+.rows .row:last-child{border-bottom:1px solid var(--line)}
+.row-title{font-family:var(--display);font-size:clamp(26px,2.9vw,40px);font-weight:700;
+  letter-spacing:-.035em;line-height:1.15;transition:color .2s ease-out}
+.row-desc{margin-top:14px;font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:42ch}
+.row-tags{margin-top:18px;font-size:13px;color:var(--muted);letter-spacing:.01em}
+.row-more{margin-top:24px;display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600}
+.row-more i{font-style:normal;display:inline-block;transition:transform .2s ease-out}
+.row:hover .row-title{color:var(--violet)}
+.row:hover .row-more i{transform:translateX(5px)}
+
+.frame{
+  position:relative;aspect-ratio:16/10;background:var(--paper-2);overflow:hidden;
+  display:grid;place-items:center;transition:background .28s var(--ease);
+}
+.frame::after{content:"";position:absolute;inset:14px;border:1px solid rgba(10,14,39,.13);transition:border-color .28s}
+.frame b{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.04em;transition:color .28s}
+.row:hover .frame{background:var(--violet)}
+.row:hover .frame::after{border-color:rgba(255,255,255,.42)}
+.row:hover .frame b{color:#fff}
+@media(max-width:820px){
+  .row{grid-template-columns:1fr;gap:22px;padding-block:36px}
+  .frame{order:2}
+}
+
+/* ── contact ───────────────────────────────── */
+.contact{background:var(--violet);color:#fff;margin-top:clamp(88px,13vh,152px);
+  padding-block:clamp(72px,11vh,128px) 32px}
+.contact .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,6vw,80px)}
+.contact h2{font-family:var(--display);font-size:clamp(56px,8vw,104px);line-height:.92;
+  letter-spacing:-.05em;font-weight:800}
+.contact-lead{margin-top:22px;font-size:17px;line-height:1.8;color:rgba(255,255,255,.92);max-width:34ch}
+.mail{display:inline-block;margin-top:clamp(28px,4vh,40px);font-size:clamp(20px,2.4vw,30px);
+  font-weight:600;letter-spacing:-.02em;border-bottom:1px solid rgba(255,255,255,.5);
+  padding:12px 0 10px;transition:border-color .2s}
+.mail:hover{border-color:#fff}
+.socials{display:flex;flex-direction:column;gap:0;margin-top:clamp(8px,2vh,16px)}
+.socials a{display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:18px 0;border-top:1px solid rgba(255,255,255,.34);font-size:15px;font-weight:500;
+  transition:padding-left .25s var(--ease)}
+.socials a:last-child{border-bottom:1px solid rgba(255,255,255,.34)}
+.socials a:hover{padding-left:8px}
+.socials a span{font-size:13px;color:rgba(255,255,255,.75)}
+.contact-foot{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  border-top:1px solid rgba(255,255,255,.34);margin-top:clamp(40px,7vh,72px);padding-top:20px;
+  font-size:12px;color:rgba(255,255,255,.82)}
+@media(max-width:820px){.contact .wrap{grid-template-columns:1fr}}
+
+/* ── detail views ──────────────────────────── */
+.detail{padding-block:clamp(32px,5vh,56px) clamp(72px,11vh,120px)}
+.back{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-soft);padding:8px 0}
+.back i{font-style:normal;transition:transform .2s}
+.back:hover{color:var(--violet)}
+.back:hover i{transform:translateX(-4px)}
+.detail-head{margin-top:clamp(36px,6vh,72px);padding-bottom:64px;border-bottom:1px solid var(--ink)}
+.detail-head h1{font-family:var(--display);font-size:clamp(44px,6.2vw,88px);line-height:.98;
+  letter-spacing:-.05em;font-weight:800}
+.detail-lead{margin-top:20px;font-size:clamp(18px,1.9vw,22px);line-height:1.6;color:var(--ink-soft);max-width:44ch}
+.detail-meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:24px;font-size:13px;color:var(--muted)}
+.detail-body{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:clamp(32px,6vw,88px);
+  margin-top:clamp(40px,6vh,64px);align-items:start}
+.detail-body .side{position:sticky;top:96px}
+.detail-body .side img{width:100%;max-width:300px}
+.detail-body section{margin-bottom:clamp(36px,5vh,52px);max-width:62ch}
+.detail-body h2{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+.detail-body p{font-size:16px;line-height:1.85;color:var(--ink-soft)}
+.detail-body p+p{margin-top:12px}
+.dash{border-bottom:1px dashed rgba(10,14,39,.22);display:inline-block;min-width:120px;height:1.2em;vertical-align:-.2em}
+.pager{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:clamp(40px,6vh,64px);padding-top:24px}
+.pager a{display:flex;flex-direction:column;gap:4px;font-size:15px;font-weight:600}
+.pager a small{font-size:12px;font-weight:400;color:var(--muted)}
+.pager a:hover{color:var(--violet)}
+.pager .right{text-align:right;align-items:flex-end}
+@media(max-width:820px){.detail-body{grid-template-columns:1fr}.detail-body .side{position:static;order:-1}.detail-body .side img{max-width:200px}}
+
+/* ── entry motion: one authored moment ─────── */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes unveil{from{clip-path:inset(0 0 105% 0)}to{clip-path:inset(0 0 -5% 0)}}
+.nav{animation:rise .7s var(--ease) both}
+.portrait img{animation:rise 1.15s var(--ease) .05s both}
+.hero h1{animation:unveil .72s var(--ease) .1s both}
+.claim{animation:rise .8s var(--ease) .34s both}
+.intro{animation:rise .8s var(--ease) .42s both}
+.specs{animation:rise .8s var(--ease) .5s both}
+.actions{animation:rise .8s var(--ease) .58s both}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要内容</a>
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div class="view is-active" id="view-home">
+  <header class="nav">
+    <div class="wrap">
+      <a class="wordmark" href="#/">高乐达</a>
+      <nav aria-label="主导航">
+        <a href="#work">作品</a>
+        <a href="#/about">关于</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="main">
+    <div class="wrap">
+      <div class="portrait">
+        <picture>
+          <source srcset="assets/portrait-cutout.webp" type="image/webp">
+          <img src="assets/portrait-cutout.png" alt="高乐达（William Gao），本人照片" width="760" height="739">
+        </picture>
+      </div>
+      <div class="hero-text">
+        <h1>高乐达</h1>
+        <p class="claim">不聊概念，<br><em>真做出来。</em></p>
+        <p class="intro">北航计算机大一。用 AI 把想法做成拿得出手的作品：情绪陪伴应用、交互复习系统、AI 投资人分身。每一件都在公众号公开复盘。</p>
+        <dl class="specs">
+          <div><dt>在读</dt><dd>北京航空航天大学 · 计算机</dd></div>
+          <div><dt>方向</dt><dd>AI 产品 / 学习工具</dd></div>
+          <div><dt>记录</dt><dd>公众号 · William的AI产品站</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn" href="#/about">关于我 <span aria-hidden="true">→</span></a>
+          <a class="link" href="#work">看作品</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="work">
+    <div class="wrap">
+      <div class="work-head">
+        <h2>作品</h2>
+        <p>五个方向：情绪陪伴应用、交互复习系统、AI 投资人分身、社区学习站、数学复习资料。每一件都从真实痛点出发，做完就写复盘。</p>
+      </div>
+      <div class="rows" id="rows"></div>
+    </div>
+  </section>
+
+  <footer class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <h2>聊聊</h2>
+        <p class="contact-lead">想聊 AI 产品、学习工具，或者一起做点什么——公众号后台发消息，我都在。</p>
+        <span class="mail">公众号 · William的AI产品站</span>
+      </div>
+      <div>
+        <div class="socials">
+          <a href="https://github.com/williamgao0802" target="_blank" rel="noopener">GitHub <span>代码与开源项目</span></a>
+          <a href="https://heart-and-stars.app.workbuddy.host/" target="_blank" rel="noopener">心与星寻 · 网页版 <span>直接体验</span></a>
+          <a href="https://gaoleda.streamlit.app/" target="_blank" rel="noopener">高乐达的AI学习 <span>在线站点</span></a>
+        </div>
+      </div>
+      <div class="contact-foot">
+        <span>© 2026 高乐达 William Gao</span>
+        <span>不聊概念，真做出来。</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<div class="view detail" id="view-about">
+  <header class="nav">
+    <div class="wrap">
+      <a class="wordmark" href="#/">高乐达</a>
+      <nav aria-label="主导航">
+        <a href="#/">作品</a>
+        <a href="#/about">关于</a>
+        <a href="#/">联系</a>
+      </nav>
+    </div>
+  </header>
+  <div class="wrap">
+    <a class="back" href="#/"><i aria-hidden="true">←</i> 返回首页</a>
+    <div class="detail-head">
+      <h1>关于我</h1>
+      <p class="detail-lead">北航计算机大一。不聊概念，真做出来——用 AI 把想法做成拿得出手的作品，并把过程公开写下来。</p>
+      <div class="detail-meta"><span>北京航空航天大学 · 计算机</span><span>AI 产品 / 学习工具</span><span>2026</span></div>
+    </div>
+    <div class="detail-body">
+      <div class="side">
+        <picture>
+          <source srcset="assets/portrait-cutout.webp" type="image/webp">
+          <img src="assets/portrait-cutout.png" alt="高乐达（William Gao），本人照片" width="760" height="739">
+        </picture>
+      </div>
+      <div>
+        <section>
+          <h2>现在在做什么</h2>
+          <p>我是高乐达（William Gao），北京航空航天大学计算机专业大一学生。我的公众号「William的AI产品站」写着一句简介：<em style="font-style:normal;color:var(--violet)">不聊概念，真做出来。</em>帮助非科班出身的你，用 AI 把想法做成能拿得出手的作品——这句话也是我做每一件事的标准。</p>
+          <p>目前主线是「心与星寻」，一个面向青少年情绪陪伴的应用：三天做完小程序、网页、App 多端，危机信号词弹窗与全国心理援助热线的安全判断由规则兜底，不交给 AI。另一条线是学习工具——高代期中复习器把 710 道真题做成「题目 → 思路 → 解题过程 → 思想方法」的四段式交互系统，我自己期中复习就在用它。</p>
+        </section>
+        <section>
+          <h2>公众号 · William的AI产品站</h2>
+          <p>2026 年 10 月创办，从《创建个人公众号的初心》开始，每一篇都是动手做完一件事之后的公开复盘：AI 产品实践、学习工具、产品孵化、学习方法论，偶尔写一点文学随笔。</p>
+          <p>截至 2026 年 11 月：23 篇内容 · 约 42,148 字 · 71 张配图 · 100+ 关注。里程碑文章《在公众号获得100位关注》《新足迹!我的内容被收藏了10次!》记录了这条路的每一步。</p>
+        </section>
+        <section>
+          <h2>工具</h2>
+          <p>WorkBuddy（AI 编程工作台）· Streamlit · 微信小程序 · Python · Git / GitHub · 单文件 Web 应用 · 云打包 App</p>
+        </section>
+        <section>
+          <h2>里程碑</h2>
+          <p>2026.11　公众号获得 100 位关注，内容被收藏 10 次</p>
+          <p>2026.10　「心与星寻」三天完成小程序 + 网页 + App 多端上线</p>
+          <p>2026.10　「William的AI产品站」创刊，发布《创建个人公众号的初心》</p>
+          <p>2026.10　「高乐达的AI学习」网站从一句需求到上线，只用一个下午</p>
+        </section>
+        <a class="back" href="#/"><i aria-hidden="true">←</i> 返回首页看作品</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ PROJECT ═══════════ -->
+<div class="view detail" id="view-project">
+  <header class="nav">
+    <div class="wrap">
+      <a class="wordmark" href="#/">高乐达</a>
+      <nav aria-label="主导航">
+        <a href="#/">作品</a>
+        <a href="#/about">关于</a>
+        <a href="#/">联系</a>
+      </nav>
+    </div>
+  </header>
+  <div class="wrap" id="project-body"></div>
+</div>
+
+<script>
+/* ── 数据：加项目只改这里 ─────────────────── */
+const PROJECTS = [
+  {
+    slug:"heart-and-stars", title:"心与星寻", sub:"情绪陪伴应用 · 三天四端", year:"2026",
+    desc:"一个「有情绪就陪着你的人」：小程序、网页、安卓 App 多端同步，开心分享、难过倾诉，它都接得住。",
+    tags:["产品孵化","微信小程序","Web","安卓 App"],
+    links:[
+      {label:"网页版（功能最全）",href:"https://heart-and-stars.app.workbuddy.host/"},
+      {label:"备用入口",href:"https://williamgao0802.github.io/#/"},
+      {label:"诞生记（公众号）",href:"#"}
+    ],
+    detail:{
+      brief:"身边有同学心里难受得不行，却没人可说——那种「话到嘴边没人听」的感觉，我做这个产品就是为了接住这样的人。",
+      did:"三天做完四个端：小程序体验版、功能最全的网页版、陪伴版网页、安卓 App（云端同步）。深蓝星空界面里点亮蜡烛往前走，20 个陪伴形象会跟着你的情绪眨眼、流泪、开心。涉及安全的判断不交给 AI：危机信号词触发规则弹窗，直接给出全国统一心理援助热线 12356。",
+      result:"四端全部跑通并真实上线，小程序正式版等备案审核中。它每天我自己也在用：开心记一句，不高兴也说一句。"
+    }
+  },
+  {
+    slug:"gaoda-reviewer", title:"高代期中复习器", sub:"单文件交互复习系统", year:"2026",
+    desc:"把「看书全懂、合书就忘」的复习体验做成可交互的系统：章—节—知识点三级导航，710 道真题四段式解析。",
+    tags:["学习工具","单文件网页","思维导图","710 题题库"],
+    links:[
+      {label:"下载（百度网盘）",href:"https://pan.baidu.com/s/14g8BWin9IbAVuv6Kmzeq1Q?pwd=kiex"},
+      {label:"产品复盘（公众号）",href:"#"}
+    ],
+    detail:{
+      brief:"期中临近，课本知识点东一块西一块，题做错了也不知道去哪找同类题——复习最大的敌人从来不是懒，是乱。",
+      did:"单个网页文件，双击就能打开：每个知识点三层（知识内容 / 证明所用思想方法 / 直观理解），典型例题 + 易错点警示，710 道真题按章节筛选并做「题目 → 思路 → 解题过程 → 思想方法」四段式解析，章节思维导图可拖动缩放，知识点带「掌握 / 还需再看」状态按钮，进度存浏览器本地，Ctrl+K 全局搜索。",
+      result:"不用安装、不用联网、不用配套文件，发给别人就是一个文件的事。我的期中复习就是靠它撑下来的。"
+    }
+  },
+  {
+    slug:"angel-investor-personas", title:"六个AI投资人", sub:"AI 投资人分身专家包", year:"2026",
+    desc:"把我爸问倒我的三个商业问题，做成六个立场不同、各有评分卡的投资人分身——他们先不给你答案，先把你问住。",
+    tags:["AI Agent","WorkBuddy 专家包","417 份资料库"],
+    links:[
+      {label:"GitHub 仓库",href:"https://github.com/WilliamGao0802/angel-investor-personas"},
+      {label:"长文复盘（公众号）",href:"#"}
+    ],
+    detail:{
+      brief:"「你的商业闭环是什么？谁会付费？你想让谁帮你，他凭什么帮你？」——三个问题我一个都答不上来。你缺的不是钱，是一个敢把你问住的人。",
+      did:"六个投资人分身各有固定人格与判断顺序：沈砚看壁垒、林岸看顺序、苏昀看资产、程叙看完课率、陆择看成本瀑布、贺临看规模化判定。每人配一个能跑出数字的脚本，语言可以骗人，数字不行。喂入 11 类、417 份、11.2MB 资料（VC 方法论 / 尽调清单 / Term Sheet 条款…），并立下死规矩：每个结论后面必须跟一个来源。",
+      result:"打包开源到 GitHub，一键安装进 WorkBuddy。翻车实录也写在复盘里：注册信息全回炉、README 全是 TODO、假参数——交付前跑一遍机器可验证清单，现在是我的固定习惯。"
+    }
+  },
+  {
+    slug:"ai-learning-site", title:"高乐达的AI学习", sub:"AI 资讯 + 社区学习站", year:"2026",
+    desc:"从一个下午到正式上线：AI 新闻、讨论区、文件区、用户系统，一行代码没写，需求文档写到底。",
+    tags:["Streamlit","用户系统","社区"],
+    links:[
+      {label:"在线站点",href:"https://gaoleda.streamlit.app/"},
+      {label:"搭建复盘（公众号）",href:"#"}
+    ],
+    detail:{
+      brief:"看 AI 资料看得越多，越觉得要变成自己的只有一条路——拿它去做一个真的站。不是练习作业，是真有人用、真在线的产品。",
+      did:"中午十二点半开工，当天深夜在线可访问。四段需求文档（用户系统 / AI 新闻模块 / 互动功能区 / 视觉设计）交给 AI，先出方案再搭骨架，一次铺满逐项验收；踩了两个坑：打包失败、服务端调自己接口导致爬虫看到空页——都当天修掉。",
+      result:"站点稳定运行在 streamlit.app，支持注册登录、发言、传文件。我一行代码没写；这一天做的事是：整理需求、验收功能、报 bug 带截图。"
+    }
+  },
+  {
+    slug:"math-notes", title:"数分复习资料", sub:"条件翻译手册 · 定理汇编", year:"2026",
+    desc:"《条件——翻译对照手册》把「题设条件」翻译成「可用工具」；《数分必考定理结论汇编》把散落的定理收成一张网。",
+    tags:["数学分析","资料整理","图片集"],
+    links:[
+      {label:"获取方式见公众号",href:"#"}
+    ],
+    detail:{
+      brief:"打开试卷，是不是还在为不能很快想出做题思路而焦虑？问题往往不是不会，而是题设和知识之间缺一条通路。",
+      did:"《条件——翻译对照手册》：打通题设与知识的通路，建立工具与思路的条目化索引。《数分必考定理结论汇编》：全 32 页，把课本与证明繁杂交错的定结论整理成图集形式，方便快速过一遍。",
+      result:"发布后收到收藏与私信索取，完整版 PDF 通过公众号获取。祝诸君于考场上「笔落惊风雨」——也祝我自己。"
+    }
+  }
+];
+
+/* ── 首页作品行 ──────────────────────────── */
+document.getElementById("rows").innerHTML = PROJECTS.map(p => `
+  <a class="row" href="#/project/${p.slug}">
+    <div>
+      <h3 class="row-title">${p.title}　<span style="font-weight:500;color:var(--muted);font-size:.5em;letter-spacing:0">${p.sub}</span></h3>
+      <p class="row-desc">${p.desc}</p>
+      <p class="row-tags">${p.tags.join(" / ")}　·　${p.year}</p>
+      <span class="row-more">查看项目 <i aria-hidden="true">→</i></span>
+    </div>
+    <div class="frame" aria-hidden="true"><b>封面待补 · ${p.year}</b></div>
+  </a>`).join("");
+
+/* ── 项目详情 ────────────────────────────── */
+function renderProject(slug){
+  const i = PROJECTS.findIndex(p => p.slug === slug);
+  if(i < 0) return false;
+  const p = PROJECTS[i], prev = PROJECTS[i-1], next = PROJECTS[i+1];
+  document.getElementById("project-body").innerHTML = `
+    <a class="back" href="#/"><i aria-hidden="true">←</i> 返回首页</a>
+    <div class="detail-head">
+      <h1>${p.title}　<span style="font-weight:500;color:var(--muted);font-size:.34em;letter-spacing:0">${p.sub}</span></h1>
+      <p class="detail-lead">${p.desc}</p>
+      <div class="detail-meta"><span>${p.year}</span>${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>
+    </div>
+    <div class="frame" style="margin-top:40px;aspect-ratio:16/8" aria-hidden="true"><b>封面待补 · ${p.year}</b></div>
+    <div class="detail-body" style="grid-template-columns:1fr">
+      <div>
+        <section><h2>背景</h2><p>${p.detail.brief}</p></section>
+        <section><h2>做法</h2><p>${p.detail.did}</p></section>
+        <section><h2>结果</h2><p>${p.detail.result}</p></section>
+        <section><h2>链接</h2><p>${p.links.map(l=>l.href!=="#"?`<a class="link" href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`:`<a class="link" href="#" onclick="return false">${l.label}</a>`).join("　")}</p></section>
+      </div>
+    </div>
+    <div class="pager">
+      ${prev ? `<a href="#/project/${prev.slug}"><small>上一个</small>${prev.title}</a>` : `<span></span>`}
+      ${next ? `<a class="right" href="#/project/${next.slug}"><small>下一个</small>${next.title}</a>` : `<span></span>`}
+    </div>`;
+  return true;
+}
+
+/* ── 路由 ────────────────────────────────── */
+const views = {
+  home: document.getElementById("view-home"),
+  about: document.getElementById("view-about"),
+  project: document.getElementById("view-project")
+};
+let homeY = 0;
+function activate(name){
+  Object.entries(views).forEach(([k,el]) => el.classList.toggle("is-active", k === name));
+}
+function route(){
+  const hash = (location.hash || "#/").replace(/^#/, "");
+  if(hash.startsWith("/project/")){
+    const slug = hash.split("/")[2];
+    if(renderProject(slug)){
+      if(!views.project.classList.contains("is-active")) homeY = window.scrollY;
+      activate("project"); document.title = `${pTitle(slug)} · 高乐达`;
+      window.scrollTo(0,0); return;
+    }
+  }
+  if(hash === "/about"){
+    if(!views.about.classList.contains("is-active")) homeY = window.scrollY;
+    activate("about"); document.title = "关于我 · 高乐达";
+    window.scrollTo(0,0); return;
+  }
+  activate("home"); document.title = "高乐达 William Gao · AI 产品作品集";
+  window.scrollTo(0, homeY);
+}
+function pTitle(slug){
+  const p = PROJECTS.find(p => p.slug === slug);
+  return p ? p.title : slug;
+}
+window.addEventListener("hashchange", route);
+
+/* ── 进度条 ──────────────────────────────── */
+function progress(){
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById("progress").style.width =
+    (h > 0 ? Math.min(100, Math.max(0, window.scrollY / h * 100)) : 0) + "%";
+}
+window.addEventListener("scroll", progress, { passive:true });
+window.addEventListener("resize", progress);
+
+route(); progress();
+</script>
+</body>
+</html>
